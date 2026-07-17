@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int countHomogenous(string s) {
+        int n=s.size();
+        const int mod=1e9+7;
+    
+        long long ans=1;
+        long long curr=1;
+        for(int i=1;i<n;i++){
+            if(s[i]==s[i-1]){
+                curr++;
+            }
+            else{
+             
+                curr=1;
+            }
+            ans=(ans+curr)%mod;
+        }
+        return ans;
+    }
+};
