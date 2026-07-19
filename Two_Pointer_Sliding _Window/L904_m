@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int n=fruits.size();
+        vector<int>freq(n,0);
+        int ans=0;
+        int left=0;
+        int distinct=0;
+        for(int right=0;right<n;right++){
+            freq[fruits[right]]++;
+            if(freq[fruits[right]]==1)distinct++;
+            while(distinct>2){
+                if(freq[fruits[left]]==1)distinct--;
+                freq[fruits[left]]--;
+                left++;
+            }
+            ans=max(ans,right-left+1);
+        }
+        return ans;
+    }
+};
