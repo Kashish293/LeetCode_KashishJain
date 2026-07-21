@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool can(vector<int>& position,int m,int dist){
+        int count=1;
+        int lastpos=position[0];
+        for(int i=1;i<position.size();i++){
+            if(position[i]-lastpos>=dist){
+                count++;
+                lastpos=position[i];
+            }
+        }
+        return count>=m;
+    }
+    int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(),position.end());
+        int n=position.size();
+        int low=1;
+        int high=position[n-1]-position[0];
+        while(low<high){
+            int mid=(low+high+1)/2;
+            if(can(position,m,mid))low=mid;
+            else high=mid-1;
+        }
+        return low;
+    }   
+};
