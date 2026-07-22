@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool check(string& s,int x,int numOps){
+        if(x==1){
+            int flip1=0;
+            int flip2=0;
+            for(int i=0;i<s.size();i++){
+                char expected=(i%2==0)?'0':'1';
+                if(s[i]!=expected) flip1++;
+            }
+            for(int i=0;i<s.size();i++){
+                char expected=(i%2==0)?'1':'0';
+                if(s[i]!=expected) flip2++;
+            }
+    return min(flip1,flip2)<=numOps;
+        }
+
+
+            int cnt=1;
+            int ops=0;
+            for(int i=1;i<s.size();i++){
+                if(s[i]==s[i-1]) cnt++;
+                else{
+                    ops+=cnt/(x+1);
+                    cnt=1;
+                }
+            }
+            
+                    ops+=cnt/(x+1);
+            return ops<=numOps;
+    }
+    int minLength(string s, int numOps) {
+        int n=s.size();
+        int left=1;
+        int high=n;
+        while(left<high){
+            int mid=left+(high-left)/2;
+            if(check(s,mid,numOps)){
+                high=mid;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+};
