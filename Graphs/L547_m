@@ -1,0 +1,35 @@
+lass Solution {
+public:
+    void dfs(int node,vector<int>&vis,vector<vector<int>>&adjl){
+        vis[node]=1;
+        for(auto& it:adjl[node]){
+            if(!vis[it]){
+                dfs(it,vis,adjl);
+            }
+        }
+    }
+
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n=isConnected.size();
+        vector<vector<int>>adjl(n);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j]==1){
+                    adjl[i].push_back(j);
+                    adjl[j].push_back(i);
+                }
+            }
+        }
+        vector<int>vis(n+1,0);
+        int province=0;
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+            province++;
+                dfs(i,vis,adjl);
+            }
+
+        }
+        return province;
+
+    }
+};
